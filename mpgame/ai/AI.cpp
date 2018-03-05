@@ -2467,6 +2467,8 @@ idAI::Attack
 */
 bool idAI::Attack ( const char* attackName, jointHandle_t joint, idEntity* target, const idVec3& pushVelocity ) {
 	// Get the attack dictionary
+	return false;//MY CHANGE
+
 	const idDict* attackDict;
 	attackDict = gameLocal.FindEntityDefDict ( spawnArgs.GetString ( va("def_attack_%s", attackName ) ), false );
 	if ( !attackDict ) {
@@ -2720,6 +2722,7 @@ idAI::TestMelee
 =====================
 */
 bool idAI::TestMelee( void ) const {
+	return false;
 	trace_t		trace;
 	idEntity*	enemyEnt = enemy.ent;
 
@@ -2777,6 +2780,7 @@ that the view kick and knockback should go
 =====================
 */
 bool idAI::AttackMelee ( const char *attackName, const idDict* meleeDict ) {
+	return false;//MY CHANGE
 	idEntity*				enemyEnt = enemy.ent;
 	const char*				p;
 	const idSoundShader*	shader;
@@ -4428,8 +4432,11 @@ void idAI::UpdateThreat ( void ) {
 	
 	// Adjust threat using current tactical state
 	switch ( combat.tacticalCurrent ) {
-		case AITACTICAL_HIDE:	combat.threatCurrent *= 0.5f;	break;
-		case AITACTICAL_MELEE:	combat.threatCurrent *= 2.0f;	break;
+		//case AITACTICAL_HIDE:	combat.threatCurrent *= 0.5f;	break;
+		//case AITACTICAL_MELEE:	combat.threatCurrent *= 2.0f;	break;
+
+		case AITACTICAL_HIDE:	combat.threatCurrent *= 0.0f;	break;
+		case AITACTICAL_MELEE:	combat.threatCurrent *= 0.0f;	break;
 	}		
 	
 	// Signifigantly reduced threat when in undying mode
@@ -5096,7 +5103,7 @@ idAI::IsMeleeNeeded
 ===================
 */
 bool idAI::IsMeleeNeeded( void )	{
-
+	return false;
 	if( enemy.ent && enemy.ent->IsType ( idAI::Type ))	{
 		
 		idAI* enemyAI = static_cast<idAI*>(enemy.ent.GetEntity());

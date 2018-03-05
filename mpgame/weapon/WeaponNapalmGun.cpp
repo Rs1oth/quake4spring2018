@@ -396,7 +396,7 @@ stateResult_t WeaponNapalmGun::State_Fire( const stateParms_t& parms ) {
 			if ( wsfl.zoom ) {
 				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
 				Attack ( true, 1, spread, 0, 1.0f );
-				PlayAnim ( ANIMCHANNEL_ALL, "idle", parms.blendFrames );
+				//PlayAnim ( ANIMCHANNEL_ALL, "idle", parms.blendFrames );
 				//fireHeld = true;
 			} else {
 				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
@@ -409,7 +409,7 @@ stateResult_t WeaponNapalmGun::State_Fire( const stateParms_t& parms ) {
 					anim->SetPlaybackRate ( (float)anim->Length() / (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE )) );
 				}
 
-				PlayAnim ( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
+				//PlayAnim ( ANIMCHANNEL_ALL, "fire", parms.blendFrames );
 			}
 
 			previousAmmo = AmmoInClip();

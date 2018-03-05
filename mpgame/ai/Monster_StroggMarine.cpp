@@ -164,6 +164,7 @@ rvMonsterStroggMarine::OnStopMoving
 void rvMonsterStroggMarine::OnStopMoving ( aiMoveCommand_t oldMoveCommand ) {
 	//MCG - once you get to your position, attack immediately (no pause)
 	//FIXME: Restrict this some?  Not after animmoves?  Not if move was short?  Only in certain tactical states?
+	return;
 	if ( GetEnemy() )
 	{
 		if ( combat.tacticalCurrent == AITACTICAL_HIDE )
@@ -191,6 +192,7 @@ rvMonsterStroggMarine::CheckAction_JumpBack
 */
 bool rvMonsterStroggMarine::CheckAction_JumpBack ( rvAIAction* action, int animNum ) {
 	// Jump back after taking damage
+	return false;
 	if ( !aifl.damage && gameLocal.time - pain.lastTakenTime > 1500 ) {
 		return false;
 	}
@@ -213,6 +215,7 @@ rvMonsterStroggMarine::CheckAction_EvadeLeft
 ================
 */
 bool rvMonsterStroggMarine::CheckAction_EvadeLeft ( rvAIAction* action, int animNum ) {
+	return false;
 	if ( gameLocal.time - pain.lastTakenTime > 1500 ) {
 		if( combat.shotAtAngle >= 0 || gameLocal.time - combat.shotAtTime > 100 ) {
 			return false;
@@ -231,6 +234,7 @@ rvMonsterStroggMarine::CheckAction_EvadeRight
 ================
 */
 bool rvMonsterStroggMarine::CheckAction_EvadeRight ( rvAIAction* action, int animNum ) {
+	return false;
 	if ( gameLocal.time - pain.lastTakenTime > 1500 ) {
 		if( combat.shotAtAngle < 0 || gameLocal.time - combat.shotAtTime > 100 ){
 			return false;
@@ -249,6 +253,7 @@ rvMonsterStroggMarine::CheckAction_Strafe
 ================
 */
 bool rvMonsterStroggMarine::CheckAction_Strafe ( rvAIAction* action, int animNum ) {
+	return false;
 	if ( !enemy.fl.visible ) {
 		return false;
 	}
@@ -277,7 +282,7 @@ rvMonsterStroggMarine::CheckAction_RangedAttack
 ================
 */
 bool rvMonsterStroggMarine::CheckAction_RangedAttack ( rvAIAction* action, int animNum ) {
-
+	return false;
 	if ( !enemy.ent || !enemy.fl.inFov ) {
 		return false;
 	}
@@ -301,6 +306,7 @@ rvMonsterStroggMarine::CheckAction_CrouchRangedAttack
 */
 bool rvMonsterStroggMarine::CheckAction_CrouchRangedAttack ( rvAIAction* action, int animNum )
 {
+	return false;
 	if ( !enemy.ent || !enemy.fl.inFov ) {
 		return false;
 	}
@@ -330,6 +336,7 @@ rvMonsterStroggMarine::CheckAction_RollAttack
 */
 bool rvMonsterStroggMarine::CheckAction_RollAttack ( rvAIAction* action, int animNum )
 {
+	return false;
 	if ( !enemy.ent || !enemy.fl.inFov || !enemy.fl.visible ) {
 		return false;
 	}
@@ -346,6 +353,7 @@ rvMonsterStroggMarine::CheckAction_SprayAttack
 */
 bool rvMonsterStroggMarine::CheckAction_SprayAttack ( rvAIAction* action, int animNum )
 {
+	return false;
 	if ( !enemy.ent || !enemy.fl.inFov ) {
 		return false;
 	}
@@ -366,6 +374,7 @@ rvMonsterStroggMarine::CheckAction_Angry
 */
 bool rvMonsterStroggMarine::CheckAction_Angry ( rvAIAction* action, int animNum )
 {
+	return false;
 	if ( !enemy.ent || !enemy.fl.inFov || !enemy.fl.visible ) {
 		return false;
 	}
@@ -378,6 +387,7 @@ rvMonsterStroggMarine::CheckAction_Reload
 ================
 */
 bool rvMonsterStroggMarine::CheckAction_Reload ( rvAIAction* action, int animNum ) {
+	return false;
 	if ( !enemy.ent || !enemy.fl.inFov || !enemy.fl.visible ) {
 		return false;
 	}
@@ -390,7 +400,7 @@ rvMonsterStroggMarine::CheckActions
 ================
 */
 bool rvMonsterStroggMarine::CheckActions ( void ) {
-
+	return false;
 	if ( idAI::CheckActions ( ) ) 
 	{
 		return true;
@@ -650,6 +660,7 @@ rvMonsterStroggMarine::EnemyMovingToRight
 */
 bool rvMonsterStroggMarine::EnemyMovingToRight( void )
 {
+	return false;
 	if ( !GetEnemy() )
 	{
 		return false;

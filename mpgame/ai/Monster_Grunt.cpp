@@ -53,6 +53,7 @@ rvMonsterGrunt::rvMonsterGrunt
 */
 rvMonsterGrunt::rvMonsterGrunt ( void ) {
 	standingMeleeNoAttackTime = 0;
+
 }
 
 /*
@@ -140,6 +141,7 @@ rvMonsterGrunt::CheckActions
 ================
 */
 bool rvMonsterGrunt::CheckActions ( void ) {
+	
 	// If our health is below the rage threshold then enrage
 	if ( health < rageThreshold ) { 
 		PerformAction ( "Torso_Enrage", 4, true );
@@ -186,7 +188,9 @@ bool rvMonsterGrunt::CheckActions ( void ) {
 			return true;
 		}
 	}
+	
 	return false;
+	
 }
 
 /*

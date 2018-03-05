@@ -128,6 +128,7 @@ void rvAASFindGoalForAttack::Init ( void ) {
 	// setup PVS
 	int	numPVSAreas;
 	numPVSAreas = gameLocal.pvs.GetPVSAreas( owner->enemy.ent->GetPhysics()->GetAbsBounds(), PVSAreas, idEntity::MAX_PVS_AREAS );
+	//numPVSAreas = gameLocal.pvs.GetPVSAreas(owner->enemy.ent->GetPhysics()->GetAbsBounds(), PVSAreas, 0);
 	targetPVS	= gameLocal.pvs.SetupCurrentPVS( PVSAreas, numPVSAreas );
 	
 	cachedGoals.SetGranularity ( 1024 );

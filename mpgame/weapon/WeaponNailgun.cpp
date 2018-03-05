@@ -39,7 +39,7 @@ public:
 	void				Restore				( idRestoreGame *savefile );
 	void				PreSave					( void );
 	void				PostSave				( void );
-
+	int					firecycle = 0;
 protected:
 
 	idEntityPtr<idEntity>				guideEnt;
@@ -667,11 +667,31 @@ stateResult_t rvWeaponNailgun::State_Fire( const stateParms_t& parms ) {
 			}
 
 			if ( wsfl.zoom ) {				
-				Attack ( true, 1, spread, 0.0f, 1.0f );
-				nextAttackTime = gameLocal.time + (altFireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+				Attack(false, 1, spread, 0.0f, 1.0f);
+				if (firecycle == 0) {
+					nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier(PMOD_FIRERATE));
+					firecycle = 1;
+				}
+				else if (firecycle == 1) {
+					nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier(PMOD_FIRERATE));
+					firecycle = 2;
+				}
+				else {
+					nextAttackTime = gameLocal.time + ((fireRate + .5) * owner->PowerUpModifier(PMOD_FIRERATE));
+					firecycle = 0;
+				}
 			} else {
 				Attack ( false, 1, spread, 0.0f, 1.0f );
-				nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
+				if (firecycle == 0) {
+					nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier(PMOD_FIRERATE));
+					firecycle = 1;
+				}
+				else if (firecycle == 1) {
+					nextAttackTime = gameLocal.time + ((fireRate+500) * owner->PowerUpModifier(PMOD_FIRERATE));
+					firecycle = 0;
+				}
+				
+
 			}
 			
 			// Play the exhaust effects

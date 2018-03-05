@@ -24,7 +24,7 @@ protected:
 
 	jointHandle_t			jointBatteryView;
 	bool					spinning;
-
+	int						hitscans;
 	void					SpinUp				( void );
 	void					SpinDown			( void );
 
@@ -56,7 +56,7 @@ rvWeaponHyperblaster::Spawn
 void rvWeaponHyperblaster::Spawn ( void ) {
 	jointBatteryView = viewAnimator->GetJointHandle ( spawnArgs.GetString ( "joint_view_battery" ) );
 	spinning		 = false;
-	
+	hitscans = spawnArgs.GetFloat("hitscans");
 	SetState ( "Raise", 0 );	
 }
 
@@ -229,7 +229,7 @@ stateResult_t rvWeaponHyperblaster::State_Fire ( const stateParms_t& parms ) {
 		case STAGE_INIT:
 			SpinUp ( );
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));
-			Attack ( false, 1, spread, 0, 1.0f );
+			MyAttack ( false, hitscans, spread, 0, 1.0f );
 			if ( ClipSize() ) {
 				viewModel->SetShaderParm ( HYPERBLASTER_SPARM_BATTERY, (float)AmmoInClip()/ClipSize() );
 			} else {

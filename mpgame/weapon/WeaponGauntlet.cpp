@@ -466,7 +466,10 @@ stateResult_t rvWeaponGauntlet::State_Fire( const stateParms_t& parms ) {
 		STAGE_LOOP,
 		STAGE_LOOP_WAIT,
 		STAGE_END,
-		STAGE_END_WAIT
+		STAGE_END_WAIT,
+		LOWER_INIT,
+		LOWER_WAIT,
+		LOWER_WAITRAISE
 	};	
 	switch ( parms.stage ) {
 		case STAGE_START:	
@@ -496,7 +499,8 @@ stateResult_t rvWeaponGauntlet::State_Fire( const stateParms_t& parms ) {
 				return SRESULT_STAGE( STAGE_END );
 			}
 			Attack();
-			return SRESULT_WAIT;
+			wsfl.attack = false;
+			return SRESULT_STAGE(STAGE_END);
 		
 		case STAGE_END:
 			PlayAnim( ANIMCHANNEL_ALL, "attack_end", parms.blendFrames );
@@ -507,6 +511,25 @@ stateResult_t rvWeaponGauntlet::State_Fire( const stateParms_t& parms ) {
 		case STAGE_END_WAIT:
 			if ( wsfl.attack || AnimDone( ANIMCHANNEL_ALL, parms.blendFrames ) ) {
 				PostState( "Idle", parms.blendFrames );
+				return SRESULT_DONE;
+			}
+			return SRESULT_STAGE(LOWER_INIT);
+
+		case LOWER_INIT:
+			SetStatus(WP_LOWERING);
+			PlayAnim(ANIMCHANNEL_ALL, "lower", parms.blendFrames);
+			return SRESULT_STAGE(LOWER_WAIT);
+
+		case LOWER_WAIT:
+			if (AnimDone(ANIMCHANNEL_ALL, 0)) {
+				SetStatus(WP_HOLSTERED);
+				return SRESULT_STAGE(LOWER_WAITRAISE);
+			}
+			return SRESULT_WAIT;
+
+		case LOWER_WAITRAISE:
+			if (wsfl.raiseWeapon) {
+				SetState("Raise", 0);
 				return SRESULT_DONE;
 			}
 			return SRESULT_WAIT;

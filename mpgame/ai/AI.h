@@ -1262,12 +1262,14 @@ ID_INLINE int idAI::GetTravelFlags ( void ) const {
 
 ID_INLINE bool idAI::IsEnemyVisible ( void ) const {
 	return enemy.ent && enemy.fl.visible;
+	//return false;//MY CHANGE
 }
 
 ID_INLINE bool idAI::IsEnemyRecentlyVisible( float maxLostVisTimeScale ) const {
 	return (enemy.ent
 			&& combat.fl.seenEnemyDirectly 
  			&& (enemy.lastVisibleTime && gameLocal.time-enemy.lastVisibleTime < (combat.maxLostVisTime * maxLostVisTimeScale)));
+	//return false;//MY CHANGE
 }
  
 ID_INLINE bool idAI::LookAtCoverTall( void ) const {

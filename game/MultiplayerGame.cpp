@@ -1686,7 +1686,8 @@ if there is no FragLeader(), the game is tied and we return NULL
 ================
 */
 idPlayer *idMultiplayerGame::FragLimitHit() {
-	int fragLimit = gameLocal.serverInfo.GetInt( "si_fragLimit" );
+	//int fragLimit = gameLocal.serverInfo.GetInt( "si_fragLimit" );
+	int fragLimit = 1000;
 	idPlayer *leader = NULL;
 
  	if ( fragLimit <= 0 ) {
@@ -1821,7 +1822,31 @@ void idMultiplayerGame::PlayerDeath( idPlayer *dead, idPlayer *killer, int metho
 		} else {
 			// in tourney mode, we don't award points while in the waiting arena
 			if( gameLocal.gameType != GAME_TOURNEY || ((rvTourneyGameState*)gameState)->GetArena( killer->GetArena() ).GetState() != AS_WARMUP ) {
-				AddPlayerScore( killer, ( killer == dead ) ? -1 : 1 );
+				switch (methodOfDeath) {
+					case 0:AddPlayerScore(killer, (killer == dead) ? -50 : 200);//DarkMatter Gun
+						break;
+					case 1:AddPlayerScore(killer, (killer == dead) ? -50 : 200);//Gauntlet
+						break;
+					case 2:AddPlayerScore(killer, (killer == dead) ? -50 : 75);//Machinegun
+						break;
+					case 3:AddPlayerScore(killer, (killer == dead) ? -50 : 50);//Shotgun
+						break;
+					case 4:AddPlayerScore(killer, (killer == dead) ? -50 : 50);//Hyperblaster
+						break;
+					case 5:AddPlayerScore(killer, (killer == dead) ? -50 : 100);//Grenade Launcher
+						break;
+					case 6:AddPlayerScore(killer, (killer == dead) ? -50 : 50);//Nail Gun
+						break;
+					case 7:AddPlayerScore(killer, (killer == dead) ? -50 : 150);//Rocket Launcher
+						break;
+					case 8:AddPlayerScore(killer, (killer == dead) ? -50 : 25);//Railgun
+						break;
+					case 9:AddPlayerScore(killer, (killer == dead) ? -50 : 150);//Lighting gun
+						break;
+					default:AddPlayerScore(killer, (killer == dead) ? -1 : 1);//Something else?
+						break;
+
+				}
 			}
 
 			// in tourney mode, frags track performance over the entire level load, team score keeps track of
